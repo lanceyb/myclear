@@ -12,4 +12,8 @@ class MyclearTest < Minitest::Test
   def test_sign_type_default
     assert_equal 'sha1', Myclear.sign_type
   end
+
+  def test_fpx_version_default
+    assert_equal '7.0', Myclear.fpx_version
+  end
 end

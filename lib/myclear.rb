@@ -3,9 +3,10 @@ require "myclear/version"
 module Myclear
   @debug_mode = true
   @sign_type = 'sha1'
+  @fpx_version = '7.0'
 
   class << self
-    attr_accessor :debug_mode, :sign_type
+    attr_accessor :debug_mode, :sign_type, :fpx_version
     attr_accessor :fpx_certification, :fpx_after_certification, :primary_key,
       :seller_exchange_id, :seller_id, :service_host, :fpx_version
 
@@ -153,13 +154,3 @@ module Myclear
     end
   end
 end
-
-Myclear.fpx_version = '7.0'
-# # uat
-# Myclear.seller_exchange_id = 'EX00006370'
-# Myclear.seller_id = 'SE00007438'
-# Myclear.service_host = 'https://uat.mepsfpx.com.my'
-# Myclear.primary_key = File.read(File.expand_path('./../../test/files/EX00006370.key', __FILE__))
-# Myclear.fpx_certification = File.read(File.expand_path('./../../test/files/fpxuat.cer', __FILE__))
-# # Myclear.fpx_after_certification = File.read(File.expand_path('./../../test/files/fpxuat.cer', __FILE__))
-
