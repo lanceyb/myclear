@@ -5,7 +5,11 @@ class MyclearTest < Minitest::Test
     refute_nil ::Myclear::VERSION
   end
 
-  def test_it_does_something_useful
-    assert false
+  def test_debug_mode_default
+    assert Myclear.debug_mode?
+  end
+
+  def test_sign_type_default
+    assert_equal 'sha1', Myclear.sign_type
   end
 end
