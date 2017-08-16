@@ -10,7 +10,7 @@ class MyclearTest < Minitest::Test
   end
 
   def test_digest_type_default
-    assert_equal 'sha1', Myclear.digest_type
+    assert_equal 'SHA1', Myclear.digest_type
   end
 
   def test_fpx_version_default

@@ -1,10 +1,11 @@
 require "myclear/version"
 require "myclear/sign"
 require "myclear/utils"
+require 'openssl'
 
 module Myclear
   @debug_mode = true
-  @digest_type = 'sha1'
+  @digest_type = 'SHA1'
   @fpx_version = '7.0'
 
   class << self

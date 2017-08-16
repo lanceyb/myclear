@@ -7,5 +7,13 @@ module Myclear
       end
       new_hash
     end
+
+    def self.binary_to_hex(str)
+      str.unpack("H*").first.upcase
+    end
+
+    def self.hex_to_binary(str)
+      [str.downcase].pack("H*")
+    end
   end
 end
