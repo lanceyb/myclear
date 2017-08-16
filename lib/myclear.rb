@@ -1,12 +1,14 @@
 require "myclear/version"
+require "myclear/sign"
+require "myclear/utils"
 
 module Myclear
   @debug_mode = true
-  @sign_type = 'sha1'
+  @digest_type = 'sha1'
   @fpx_version = '7.0'
 
   class << self
-    attr_accessor :debug_mode, :sign_type, :fpx_version
+    attr_accessor :debug_mode, :digest_type, :fpx_version
     attr_accessor :private_key, :fpx_certification, :fpx_after_certification
     attr_accessor :seller_exchange_id, :seller_id, :service_host
 
@@ -121,26 +123,5 @@ module Myclear
       end
     end
 
-  end
-
-  module Sign
-    def self.generate(str, options = {})
-      key = OpenSSL::PKey::RSA.new(Myclear.primary_key)
-      bin_to_hex(key.sign(OpenSSL::Digest::SHA1.new, str))
-    end
-
-    def self.verify?(sign, str)
-      cer = OpenSSL::X509::Certificate.new(Myclear.fpx_certification)
-      digest = OpenSSL::Digest::SHA1.new
-      cer.public_key.verify(digest, hex_to_bin(sign), str)
-    end
-
-    def self.bin_to_hex(str)
-      str.unpack("H*").first.upcase
-    end
-
-    def self.hex_to_bin(str)
-      [str.downcase].pack("H*")
-    end
   end
 end

@@ -9,8 +9,8 @@ class MyclearTest < Minitest::Test
     assert Myclear.debug_mode?
   end
 
-  def test_sign_type_default
-    assert_equal 'sha1', Myclear.sign_type
+  def test_digest_type_default
+    assert_equal 'sha1', Myclear.digest_type
   end
 
   def test_fpx_version_default
