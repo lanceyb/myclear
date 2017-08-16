@@ -7,8 +7,8 @@ module Myclear
 
   class << self
     attr_accessor :debug_mode, :sign_type, :fpx_version
-    attr_accessor :fpx_certification, :fpx_after_certification, :primary_key,
-      :seller_exchange_id, :seller_id, :service_host, :fpx_version
+    attr_accessor :private_key, :fpx_certification, :fpx_after_certification
+    attr_accessor :seller_exchange_id, :seller_id, :service_host
 
     def debug_mode?
       !!@debug_mode
@@ -141,16 +141,6 @@ module Myclear
 
     def self.hex_to_bin(str)
       [str.downcase].pack("H*")
-    end
-  end
-
-  module Utils
-    def self.stringify_keys(hash)
-      new_hash = {}
-      hash.each do |key, value|
-        new_hash[(key.to_s rescue key) || key] = value
-      end
-      new_hash
     end
   end
 end
