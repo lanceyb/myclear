@@ -21,7 +21,7 @@ module Myclear
     # fpx_msgToken: B2C => '01',  B2B => '02'
     AR_URI = '/FPXMain/seller2DReceiver.jsp'
     AR_REQUIRED_PARAMS = %w(fpx_msgToken fpx_sellerExOrderNo fpx_sellerTxnTime fpx_sellerOrderNo fpx_txnCurrency fpx_txnAmount fpx_buyerEmail fpx_buyerName fpx_buyerBankId fpx_buyerBankBranch fpx_buyerAccNo fpx_buyerId fpx_makerName fpx_buyerIban fpx_productDesc)
-    def self.authorization_request(params, options = {})
+    def self.authorization_request_params(params, options = {})
       params = Utils.stringify_keys(params)
       check_params(params, AR_REQUIRED_PARAMS)
       params = {
@@ -59,7 +59,7 @@ module Myclear
     end
 
     def self.ae_url
-      Myclear.service_host + AR_URI
+      Myclear.service_host + AE_URI
     end
 
     VERIFY_REQUIRED_PARAMS = %w(fpx_buyerBankBranch fpx_buyerBankId fpx_buyerIban fpx_buyerId fpx_buyerName fpx_creditAuthCode fpx_creditAuthNo fpx_debitAuthCode fpx_debitAuthNo fpx_fpxTxnId fpx_fpxTxnTime fpx_makerName fpx_msgToken fpx_msgType fpx_sellerExId fpx_sellerExOrderNo fpx_sellerId fpx_sellerOrderNo fpx_sellerTxnTime fpx_txnAmount fpx_txnCurrency fpx_checkSum)

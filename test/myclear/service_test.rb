@@ -45,4 +45,62 @@ class Myclear::ServiceTest < Minitest::Test
     assert_equal response_body, Myclear::Service.authorization_enquiry(params).body.strip
   end
 
+  def test_ae_url
+    assert_equal 'https://uat.mepsfpx.com.my/FPXMain/sellerNVPTxnStatus.jsp', Myclear::Service.ae_url
+    Myclear.uat = false
+    assert_equal 'https://mepsfpx.com.my/FPXMain/sellerNVPTxnStatus.jsp', Myclear::Service.ae_url
+    Myclear.uat = true
+  end
+
+  def test_ar_url
+    assert_equal 'https://uat.mepsfpx.com.my/FPXMain/seller2DReceiver.jsp', Myclear::Service.ar_url
+    Myclear.uat = false
+    assert_equal 'https://mepsfpx.com.my/FPXMain/seller2DReceiver.jsp', Myclear::Service.ar_url
+    Myclear.uat = true
+  end
+
+  def test_authorization_enquiry
+    params = {
+      'fpx_msgToken'        => '01',
+      'fpx_sellerExOrderNo' => 'EXORDERNO0000',
+      'fpx_sellerTxnTime'   => '20170817140102',
+      'fpx_sellerOrderNo'   => 'ORDERNO000000',
+      'fpx_txnCurrency'     => 'MYR',
+      'fpx_txnAmount'       => '1.00',
+      'fpx_buyerEmail'      => 'test@example.com',
+      'fpx_buyerName'       => '',
+      'fpx_buyerBankId'     => 'TEST0021',
+      'fpx_buyerBankBranch' => 'SBI BANK A',
+      'fpx_buyerAccNo'      => '',
+      'fpx_buyerId'         => '',
+      'fpx_makerName'       => '',
+      'fpx_buyerIban'       => '',
+      'fpx_productDesc'     => '1 goods'
+    }
+    request_params = {
+      "fpx_msgType"=>"AR",
+      "fpx_sellerBankCode"=>"01",
+      "fpx_sellerExId"=>"EX00000000",
+      "fpx_version"=>"7.0",
+      "fpx_sellerId"=>"SE00000000",
+      "fpx_msgToken"=>"01",
+      "fpx_sellerExOrderNo"=>"EXORDERNO0000",
+      "fpx_sellerTxnTime"=>"20170817140102",
+      "fpx_sellerOrderNo"=>"ORDERNO000000",
+      "fpx_txnCurrency"=>"MYR",
+      "fpx_txnAmount"=>"1.00",
+      "fpx_buyerEmail"=>"test@example.com",
+      "fpx_buyerName"=>"",
+      "fpx_buyerBankId"=>"TEST0021",
+      "fpx_buyerBankBranch"=>"SBI BANK A",
+      "fpx_buyerAccNo"=>"",
+      "fpx_buyerId"=>"",
+      "fpx_makerName"=>"",
+      "fpx_buyerIban"=>"",
+      "fpx_productDesc"=>"1 goods",
+      "fpx_checkSum"=> "5BB0DBFBC886C017503CEA1FF456381D0062C5845B40F7990169157CBEBA52CFD7E6720021C450F4110E4C282509D5A0B13372724B86C96CA46076416BE169EC69454529FB4BD773133FE951DE139FAE87AC2560FFE11AC43491228A28BD15E78E4FF1797EFCD86697D6B96410B5335CDABB0D488B23F86E0DA4DD0FF6D7B87B472AEF4E0FFC25E5565F986E8FB4658AFA09F2F1CC20DB20B31794F317E0188A0C2C59B820263689CE5561933583A58054E0ADB0F36AFD5D6D62692E110850690D997DE448213CE31E9DF5FC4A305AAA830AE46EAC89F150482838AA2ED6FB921A9440890FAB9C78EB0E7477589FE76D209680BD12F3A99943648CBF7488E2DC"
+    }
+    assert_equal request_params.sort, Myclear::Service.authorization_request_params(params).sort
+  end
+
 end
