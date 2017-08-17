@@ -1,7 +1,7 @@
 $LOAD_PATH.unshift File.expand_path("../../lib", __FILE__)
 require "myclear"
-
 require "minitest/autorun"
+require 'webmock/minitest'
 
 TEST_RSA_CERTIFICATE = <<EOF
 -----BEGIN CERTIFICATE-----

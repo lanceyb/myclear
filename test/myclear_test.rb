@@ -16,4 +16,16 @@ class MyclearTest < Minitest::Test
   def test_fpx_version_default
     assert_equal '7.0', Myclear.fpx_version
   end
+
+  def test_uat_default
+    assert Myclear.uat?
+  end
+
+  def test_service_host
+    assert_equal 'https://uat.mepsfpx.com.my', Myclear.service_host
+    Myclear.uat = false
+    assert_equal 'https://mepsfpx.com.my', Myclear.service_host
+    Myclear.uat = true
+  end
+
 end
