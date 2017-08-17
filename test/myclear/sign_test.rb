@@ -20,4 +20,10 @@ class Myclear::SignTest < Minitest::Test
     assert Myclear::Sign.verify?(@sha512_sign, @str, { digest_type: 'SHA512' })
   end
 
+  def test_standby_certification
+    Myclear.fpx_certification = TEST_RSA_EXPIRED_CERTIFICATE
+    assert Myclear::Sign.verify?(@sha1_sign, @str)
+    Myclear.fpx_certification = TEST_RSA_CERTIFICATE
+  end
+
 end

@@ -59,7 +59,7 @@ class Myclear::ServiceTest < Minitest::Test
     Myclear.uat = true
   end
 
-  def test_authorization_enquiry
+  def test_authorization_request_params
     params = {
       'fpx_msgToken'        => '01',
       'fpx_sellerExOrderNo' => 'EXORDERNO0000',

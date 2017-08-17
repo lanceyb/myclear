@@ -13,7 +13,7 @@ module Myclear
   class << self
     attr_accessor :debug_mode, :uat
     attr_accessor :digest_type, :fpx_version
-    attr_accessor :private_key, :fpx_certification, :fpx_after_certification
+    attr_accessor :private_key, :fpx_certification, :fpx_standby_certification
     attr_accessor :seller_exchange_id, :seller_id
 
     def debug_mode?
