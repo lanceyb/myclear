@@ -19,7 +19,7 @@ module Myclear
     def self.verify?(sign, str, options = {})
       cer = OpenSSL::X509::Certificate.new(Myclear.fpx_certification)
       if(cer.not_after < Time.now && !Myclear.fpx_standby_certification.nil?)
-        warn("Myclear Warn: the main certification has expired, please replace a new one.") if !Myclear.debug_mode?
+        warn("Myclear Warn: the main certification has expired, please replace a new one.")
         cer = Myclear.fpx_standby_certification
       end
       digest_type = options[:digest_type] || Myclear.digest_type
