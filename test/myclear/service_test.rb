@@ -12,4 +12,11 @@ class Myclear::ServiceTest < Minitest::Test
     assert_equal response_body, Myclear::Service.bank_list_enquiry.body
   end
 
+  def test_be_url
+    assert_equal 'https://uat.mepsfpx.com.my/FPXMain/RetrieveBankList', Myclear::Service.be_url
+    Myclear.uat = false
+    assert_equal 'https://mepsfpx.com.my/FPXMain/RetrieveBankList', Myclear::Service.be_url
+    Myclear.uat = true
+  end
+
 end
