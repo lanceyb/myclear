@@ -81,6 +81,7 @@ module Myclear
       http.use_ssl = true
       http.verify_mode = OpenSSL::SSL::VERIFY_NONE
       req = Net::HTTP::Post.new(uri)
+      req['Accept'] = 'application/json'
       req.set_form_data(sign_params(params, options))
       http.request(req)
     end

@@ -19,4 +19,30 @@ class Myclear::ServiceTest < Minitest::Test
     Myclear.uat = true
   end
 
+  def test_authorization_enquiry
+    params = {
+      'fpx_msgToken'        => '01',
+      'fpx_sellerExOrderNo' => 'EXORDERNO0000',
+      'fpx_sellerTxnTime'   => '20170817140102',
+      'fpx_sellerOrderNo'   => 'ORDERNO000000',
+      'fpx_txnCurrency'     => 'MYR',
+      'fpx_txnAmount'       => '1.00',
+      'fpx_buyerEmail'      => 'test@example.com',
+      'fpx_buyerName'       => '',
+      'fpx_buyerBankId'     => 'TEST0021',
+      'fpx_buyerBankBranch' => 'SBI BANK A',
+      'fpx_buyerAccNo'      => '',
+      'fpx_buyerId'         => '',
+      'fpx_makerName'       => '',
+      'fpx_buyerIban'       => '',
+      'fpx_productDesc'     => '1 goods'
+    }
+    response_body = 'fpx_debitAuthCode=00&fpx_debitAuthNo=&fpx_sellerExId=EX00000000&fpx_creditAuthNo=&fpx_buyerName=&fpx_buyerId=&fpx_sellerTxnTime=20170817140102&fpx_sellerExOrderNo=EXORDERNO0000&fpx_makerName=&fpx_buyerBankBranch=SBI+Bank+A&fpx_buyerBankId=TEST0021&fpx_msgToken=01&fpx_creditAuthCode=&fpx_sellerId=SE00000000&fpx_fpxTxnTime=&fpx_buyerIban=&fpx_sellerOrderNo=ORDERNO000000&fpx_txnAmount=1.00&fpx_fpxTxnId=&fpx_checkSum=8D8B1B04BCC6D8856E54C58841FC1747A3D9EBD364ABBD3E6FD020EFA3F11CA74AFA16DC5B8F0A76FBEA191EF59B90AAD697EE4425381148BE3E2DB3B1854CFEE14A471EFC9461B38283D07374D3EC573BC1FD4E3333180F83D8580FCC76DC7D67912B4AB299439E13D498A4E3EC3882D54D43B52DCECEA7C146795C9F59ADE9F7CFC733871D8504F90FC25C85842269EC5F777A2FE29EBED3B1EACEC884F1EEF287755CCEE2EFF6A2825DC7C8B444483F82FD89D49CAD797045344E92F9CD6222CA8149FE2010AA49C2731DD2708A7E3DA71E5D5B1B26280D91EA831A3DD2E81D8922AF7E8F5603CBB7F6CCA58B9151511A53449E0652D3E26C18FF13B18DE4&fpx_msgType=AC&fpx_txnCurrency=MYR'
+    stub_request(
+      :post,
+      'https://uat.mepsfpx.com.my/FPXMain/sellerNVPTxnStatus.jsp'
+    ).to_return(body: response_body)
+    assert_equal response_body, Myclear::Service.authorization_enquiry(params).body.strip
+  end
+
 end
