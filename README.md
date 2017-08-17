@@ -1,8 +1,10 @@
 # Myclear
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/myclear`. To experiment with that code, run `bin/console` for an interactive prompt.
+A unofficial myclear ruby gem.
 
-TODO: Delete this and the text above, and describe your gem
+Myclear official document: https://fpxexchange.myclear.org.my:8443/MerchantIntegrationKit/
+
+note: Myclear的官方文档需要密码才能查看，请自行向 Myclear 申请.
 
 ## Installation
 
@@ -20,24 +22,102 @@ Or install it yourself as:
 
     $ gem install myclear
 
-## Usage
+## Configuration
 
-TODO: Write usage instructions here
+```ruby
+Myclear.fpx_version = '7.0'
+Myclear.seller_exchange_id = 'YOUR SELLER EXCHANGE ID'
+Myclear.seller_id = 'YOUR SELLER ID'
+Myclear.private_key = 'YOUR RSA PRIVATE KEY'
+Myclear.fpx_certification = 'THE FPX CERTIFICATION'
 
-## Development
+# Myclear.debug_mode = true # Enable parameter check. Default is true.
+# Myclear.fpx_standby_certification = 'THE STANDBY FPX CERTIFICATIO
+```
 
-After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake test` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
+eg: 
 
-To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and tags, and push the `.gem` file to [rubygems.org](https://rubygems.org).
+```ruby
+if Rails.env.production?
+  Myclear.fpx_version = '7.0'
+  Myclear.seller_exchange_id = 'YOUR SELLER EXCHANGE ID'
+  Myclear.seller_id = 'YOUR SELLER ID'
+  Myclear.private_key = 'YOUR RSA PRIVATE KEY'
+  Myclear.fpx_certification = 'THE FPX CERTIFICATION'
+else
+  Myclear.fpx_version = '7.0'
+  Myclear.seller_exchange_id = 'EX00000000'
+  Myclear.seller_id = 'SE00000000'
+  Myclear.private_key = File.read(File.expand_path('./EX00000000.key', Rails.root))
+  Myclear.fpx_certification = File.read(File.expand_path('./fpxuat.cer', Rails.root))
+end
+```
+
+## Service
+
+### bank list（银行列表）
+
+```ruby
+Myclear::Service.bank_list_enquiry
+```
+
+### Authorization Request（申请支付）
+
+```ruby
+Myclear::Service.authorization_request_params({ARGUMENTS})
+```
+
+#### Example
+```ruby
+Myclear::Service.authorization_request_params({
+  fpx_msgToken:         '01',
+  fpx_sellerExOrderNo:  'EXORDERNO0000',
+  fpx_sellerTxnTime:    '20170817140102',
+  fpx_sellerOrderNo:    'ORDERNO000000',
+  fpx_txnCurrency:      'MYR',
+  fpx_txnAmount:        '1.00',
+  fpx_buyerEmail:       'test@example.com',
+  fpx_buyerName:        '',
+  fpx_buyerBankId:      'TEST0021',
+  fpx_buyerBankBranch:  'SBI BANK A',
+  fpx_buyerAccNo:       '',
+  fpx_buyerId:          '',
+  fpx_makerName:        '',
+  fpx_buyerIban:        '',
+  fpx_productDesc:      '1 goods'
+})
+```
+
+#### Arugments
+
+
+
+### Authorization Enquiry 
+
+```ruby
+Myclear::Service.authorization_enquiry({ARGUMENTS})
+```
+
+#### Example
+```ruby
+Myclear::Service.authorization_enquiry({
+
+})
+```
+
+#### Arugments
+
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/myclear. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
+Bug reports and pull requests are welcome.
 
-## License
+### Make a pull request
 
-The gem is available as open source under the terms of the [MIT License](http://opensource.org/licenses/MIT).
+1. Fork it
+2. Create your feature branch (git checkout -b my-new-feature)
+3. Commit your changes (git commit -am 'Add some feature')
+4. Push to the branch (git push origin my-new-feature)
+5. Create new Pull Request
 
-## Code of Conduct
-
-Everyone interacting in the Myclear project’s codebases, issue trackers, chat rooms and mailing lists is expected to follow the [code of conduct](https://github.com/[USERNAME]/myclear/blob/master/CODE_OF_CONDUCT.md).
+Please write unit test with your code if necessary.
