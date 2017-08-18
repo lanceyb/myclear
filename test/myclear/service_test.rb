@@ -103,4 +103,33 @@ class Myclear::ServiceTest < Minitest::Test
     assert_equal request_params.sort, Myclear::Service.authorization_request_params(params).sort
   end
 
+  def test_verify_params
+    params = {
+      'fpx_creditAuthCode'  => '00',
+      "fpx_msgType"         => 'AC',
+      'fpx_msgToken'        => '01',
+      'fpx_sellerExOrderNo' => 'EXORDERNO0000',
+      'fpx_sellerTxnTime'   => '20170817140102',
+      "fpx_sellerExId"      => 'EX00000000',
+      "fpx_sellerId"        => "SE00007438",
+      'fpx_sellerOrderNo'   => 'ORDERNO000000',
+      'fpx_txnCurrency'     => 'MYR',
+      'fpx_txnAmount'       => '1.00',
+      "fpx_buyerName"       => "Nur@/() .-_,&'Ain",
+      'fpx_buyerBankId'     => 'TEST0021',
+      'fpx_buyerBankBranch' => 'SBI BANK A',
+      'fpx_buyerId'         => 'Buyer1234',
+      'fpx_buyerIban'       => '',
+      'fpx_creditAuthNo'    => '9999999999',
+      "fpx_debitAuthCode"   => "00",
+      "fpx_debitAuthNo"     => "15733223",
+      'fpx_fpxTxnId'        => '1707051119360697',
+      "fpx_makerName"       => "Nik'Nur",
+      "fpx_fpxTxnTime"      => "20170705112840",
+      'fpx_checkSum'        => '3BBB3E7163F7937ACB1800D349E6CB12EB9200FA0505AB92EF4F9BC6322A2E366331E9B335EE72C511B8001B89DFC16B70D11641633B48865D400BC1A28B168E789C9C5A3A4BA940379D55F89EBF1CCC54C069D6F2B592D451B5E12B1F41F222EAB76221AFFFE5B6382AFBDAF7E8843F2A92BAAFB9D9B0A019B1F27D03AD34A1809D0E6A7EF366EFF156172D1BD1EC95528A084FED20E10440D0A393399C7DECF7485D5325372F40EFF47B614274C05E88102E272B183EEA9D8590EB4AAAC0489B7246EEDD87DCE0B6B1A9BA5378C35EF85A45AEC7D22719882C2A0CD7B0C52493A2D59E935E8CF50159C21143D1F90528E65C6230DDDA835EB9672E70E08D79'
+    }
+
+    assert Myclear::Service.verify_params(params)
+  end
+
 end
