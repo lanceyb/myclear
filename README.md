@@ -14,6 +14,12 @@ Add this line to your application's Gemfile:
 gem 'myclear'
 ```
 
+or 
+
+```ruby
+gem 'myclear', github: 'lanceyb/myclear'
+```
+
 And then execute:
 
     $ bundle
@@ -158,7 +164,7 @@ note : 请求AE接口的参数，保持与AR时一致
 | pfx_buyerIban | Y | Buyer IBAN |
 | fpx_productDesc | Y | Product Description |
 
-### Verify callback
+### Verify callback(验证回调)
 
 ```ruby
 Myclear::Service.verify_params(params)
