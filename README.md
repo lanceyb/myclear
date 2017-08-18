@@ -4,7 +4,7 @@ A unofficial myclear ruby gem.
 
 Myclear official document: https://fpxexchange.myclear.org.my:8443/MerchantIntegrationKit/
 
-note: Myclear的官方文档需要密码才能查看，请自行向 Myclear 申请.
+note：Password is required  when accessing the official document, please go to Myclear for the password.
 
 ## Installation
 

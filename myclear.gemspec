@@ -9,8 +9,8 @@ Gem::Specification.new do |spec|
   spec.authors       = ["lance"]
   spec.email         = ["lance.zyb@gmail.com"]
 
-  spec.summary       = %q{sdb for MyClear.}
-  spec.description   = %q{sdb for MyClear.}
+  spec.summary       = %q{An unofficial simple myclear gem}
+  spec.description   = %q{An unofficial simple myclear gem}
   spec.homepage      = "https://github.com/lanceyb/myclear"
   spec.license       = "MIT"
 
